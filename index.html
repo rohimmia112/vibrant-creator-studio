@@ -1,26 +1,2300 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vibrant-creator-studio</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreativeYT - YouTube & Social Media Services</title>
+  <style>
+    /* Base Styles */
+    :root {
+      --primary: #9b87f5;
+      --primary-dark: #7E69AB;
+      --primary-darker: #6E59A5;
+      --primary-darkest: #5A4A9C;
+      --background: hsl(260, 30%, 98%);
+      --foreground: hsl(250, 40%, 15%);
+      --muted: hsl(260, 20%, 92%);
+      --muted-foreground: hsl(250, 40%, 40%);
+      --border: hsl(260, 20%, 85%);
+      --radius: 0.5rem;
+    }
 
-    <meta property="og:title" content="vibrant-creator-studio" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    html {
+      scroll-behavior: smooth;
+    }
 
-  <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Animation Keyframes */
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes progressFill {
+      from { width: 0; }
+      to { width: var(--progress-width); }
+    }
+
+    @keyframes volumeWave {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.5); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes bounceSlight {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Header styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-darker);
+    }
+
+    .nav {
+      display: none;
+    }
+
+    .nav a {
+      font-weight: 500;
+      margin-left: 1.5rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--foreground);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .mobile-menu.open {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 0.75rem 2rem;
+      font-weight: 500;
+    }
+
+    .mobile-menu a:hover {
+      background-color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-darker);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid currentColor;
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Hero section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 5rem;
+    }
+
+    .animated-gradient {
+      position: absolute;
+      inset: 0;
+      z-index: -10;
+      background: linear-gradient(
+        -45deg, 
+        #9b87f5, 
+        #7E69AB, 
+        #6E59A5, 
+        #5A4A9C
+      );
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+
+    .hero-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-text {
+      width: 100%;
+      color: white;
+      margin-bottom: 3rem;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero-text h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .typing-effect {
+      position: relative;
+      display: inline-block;
+    }
+
+    .typing-effect:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .cursor {
+      display: inline-block;
+      animation: pulse 0.8s infinite;
+    }
+
+    .hero-text p {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .volume-bar-container {
+      display: flex;
+      align-items: flex-end;
+      height: 3rem;
+      margin-top: 2.5rem;
+    }
+
+    .volume-bar-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-right: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .volume-bars {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .volume-bar {
+      width: 6px;
+      background-color: var(--primary);
+      margin: 0 2px;
+      border-radius: 999px;
+      animation: volumeWave 1.5s infinite ease-in-out;
+    }
+
+    .volume-bar:nth-child(2) { animation-delay: 0.2s; }
+    .volume-bar:nth-child(3) { animation-delay: 0.4s; }
+    .volume-bar:nth-child(4) { animation-delay: 0.6s; }
+    .volume-bar:nth-child(5) { animation-delay: 0.8s; }
+
+    .hero-image {
+      width: 100%;
+    }
+
+    .image-container {
+      position: relative;
+      background-color: rgba(155, 135, 245, 0.2);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+      animation: bounceSlight 3s infinite ease-in-out;
+    }
+
+    .image-container img {
+      border-radius: calc(var(--radius) - 4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      padding: 1rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-badge-title {
+      font-size: 1.125rem;
+      font-weight: bold;
+      color: var(--primary-darker);
+    }
+
+    .image-badge-text {
+      display: flex;
+      align-items: center;
+      margin-top: 0.25rem;
+    }
+
+    .image-badge-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      margin-right: 0.5rem;
+    }
+
+    .pulse-dot {
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      margin-right: 4px;
+      opacity: 0.8;
+      animation: pulse 1s infinite;
+    }
+
+    /* Section styles */
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section-gray {
+      background-color: var(--muted);
+    }
+
+    .section-header {
+      max-width: 36rem;
+      margin: 0 auto 4rem;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .section-divider {
+      height: 4px;
+      width: 5rem;
+      background-color: var(--primary);
+      margin: 0 auto 1.5rem;
+    }
+
+    .section-description {
+      color: var(--muted-foreground);
+    }
+
+    /* Services section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .service-card {
+      background-color: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      border-top: 4px solid var(--primary);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-card-header {
+      padding: 1.5rem 1.5rem 1rem;
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-description {
+      color: var(--muted-foreground);
+      margin-bottom: 0.5rem;
+    }
+
+    .service-content {
+      padding: 0 1.5rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .service-feature {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.25rem;
+      height: 1.25rem;
+      background-color: rgba(155, 135, 245, 0.2);
+      color: var(--primary-darker);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text {
+      font-size: 0.875rem;
+    }
+
+    /* Skills section */
+    .skills-list {
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+
+    .skill-item {
+      margin-bottom: 2rem;
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-name {
+      font-weight: 500;
+    }
+
+    .skill-rating {
+      display: flex;
+      align-items: center;
+    }
+
+    .rating-dots {
+      display: flex;
+      gap: 2px;
+      margin-right: 0.5rem;
+    }
+
+    .rating-dot {
+      width: 4px;
+      height: 16px;
+      border-radius: 999px;
+    }
+
+    .rating-dot-filled {
+      background-color: var(--primary);
+    }
+
+    .rating-dot-empty {
+      background-color: var(--muted);
+    }
+
+    .rating-percentage {
+      font-weight: bold;
+      font-size: 0.875rem;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: var(--muted);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: linear-gradient(to right, var(--primary), var(--primary-darkest));
+      border-radius: 999px;
+      animation: progressFill 1.5s ease-out forwards;
+    }
+
+    .service-level-container {
+      max-width: 36rem;
+      margin: 5rem auto 0;
+    }
+
+    .service-level-card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-level-title {
+      font-size: 1.125rem;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .service-level-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .service-level-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .service-level-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-level-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+    }
+
+    .service-level-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .level-bar {
+      height: 12px;
+      width: 2px;
+      background-color: var(--primary-dark);
+      border-radius: 999px;
+      animation: volumeWave 1.5s infinite ease-in-out;
+    }
+
+    .volume-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background-color: var(--muted);
+      appearance: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      cursor: pointer;
+      border: none;
+    }
+
+    /* Portfolio section */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    .tab {
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: var(--radius);
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .portfolio-item {
+      background-color: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .portfolio-image-container {
+      position: relative;
+      padding-top: 60%;
+      overflow: hidden;
+    }
+
+    .portfolio-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .portfolio-item:hover .portfolio-image {
+      transform: scale(1.05);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+      opacity: 0;
+      display: flex;
+      align-items: flex-end;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .view-details {
+      background-color: var(--primary);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: calc(var(--radius) - 2px);
+      margin: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .portfolio-content {
+      padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .portfolio-title {
+      font-size: 1.125rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .portfolio-client {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      margin-bottom: 0.5rem;
+    }
+
+    .portfolio-description {
+      font-size: 0.875rem;
+      color: var(--foreground);
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .portfolio-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+    }
+
+    .portfolio-category {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: calc(var(--radius) - 2px);
+    }
+
+    .category-youtube-seo {
+      background-color: rgba(37, 99, 235, 0.1);
+      color: rgb(29, 78, 216);
+    }
+
+    .category-thumbnail {
+      background-color: rgba(245, 158, 11, 0.1);
+      color: rgb(217, 119, 6);
+    }
+
+    .category-video-editing {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: rgb(5, 150, 105);
+    }
+
+    .category-social-media {
+      background-color: rgba(139, 92, 246, 0.1);
+      color: rgb(124, 58, 237);
+    }
+
+    .portfolio-indicator {
+      display: flex;
+      gap: 2px;
+    }
+
+    .indicator-bar {
+      height: 12px;
+      width: 2px;
+      background-color: var(--primary-dark);
+      opacity: 0.3;
+      border-radius: 999px;
+    }
+
+    /* Portfolio modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 36rem;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      padding: 1.5rem 1.5rem 0.5rem;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+
+    .modal-subtitle {
+      color: var(--muted-foreground);
+    }
+
+    .modal-body {
+      padding: 1rem 1.5rem 1.5rem;
+    }
+
+    .modal-image {
+      aspect-ratio: 16/9;
+      width: 100%;
+      border-radius: calc(var(--radius) - 2px);
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-section {
+      margin-bottom: 1rem;
+    }
+
+    .modal-section-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+      margin-bottom: 0.25rem;
+    }
+
+    .modal-close-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--foreground);
+    }
+
+    /* Contact section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .contact-info h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info p {
+      color: var(--muted-foreground);
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-item h3 {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-email {
+      color: var(--primary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 50%;
+      background-color: rgba(155, 135, 245, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .contact-listening {
+      display: flex;
+      align-items: flex-end;
+      height: 4rem;
+      margin-top: 1rem;
+    }
+
+    .contact-listening-bars {
+      display: flex;
+      gap: 4px;
+    }
+
+    .contact-listening-bar {
+      width: 6px;
+      background-color: var(--primary);
+      border-radius: 999px;
+      animation: volumeWave 1.5s infinite ease-in-out;
+    }
+
+    .contact-listening-text {
+      margin-left: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted-foreground);
+    }
+
+    .contact-form {
+      background-color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 2px);
+      background-color: white;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(155, 135, 245, 0.2);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 8rem;
+    }
+
+    /* Footer styles */
+    .footer {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 3rem 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .footer-column h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .footer-description {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-link {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-link a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.2s ease;
+    }
+
+    .footer-link a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 2rem;
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.875rem;
+    }
+
+    .footer-legal a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.2s ease;
+    }
+
+    .footer-legal a:hover {
+      color: white;
+    }
+
+    /* Utility classes */
+    .visually-hidden {
+      border: 0;
+      clip: rect(0, 0, 0, 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Toast notifications */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: white;
+      color: var(--foreground);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      margin-right: 0.75rem;
+      color: var(--primary);
+    }
+
+    /* Media queries */
+    @media (min-width: 640px) {
+      .service-level-item {
+        margin-bottom: 1rem;
+      }
+      
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+      
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: 2fr 3fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .footer-copyright {
+        margin-bottom: 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-content {
+        flex-direction: row;
+        align-items: center;
+        gap: 4rem;
+      }
+
+      .hero-text,
+      .hero-image {
+        width: 50%;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .hero-text h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="#" class="logo">CreativeYT</a>
+
+      <!-- Mobile menu button -->
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Desktop navigation -->
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#skills">Skills</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+        <button class="btn btn-primary">Hire Me</button>
+      </nav>
+
+      <!-- Mobile navigation -->
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#skills">Skills</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+        <button class="btn btn-primary" style="width:100%; margin: 1rem 0;">Hire Me</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main>
+    <!-- Hero section -->
+    <section id="home" class="hero">
+      <div class="animated-gradient"></div>
+      <div class="container hero-content">
+        <div class="hero-text">
+          <p>Welcome to my digital studio</p>
+          <h1>
+            Professional 
+            <span id="typing-text" class="typing-effect"></span>
+            <span class="cursor">|</span>
+          </h1>
+          <p>
+            I help content creators boost their YouTube presence with expert SEO, stunning thumbnails,
+            professional video editing, and complete social media management.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#portfolio" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-outline">Contact Me</a>
+          </div>
+
+          <!-- Volume bars animation -->
+          <div class="volume-bar-container">
+            <div class="volume-bar-label">Services</div>
+            <div class="volume-bars">
+              <div class="volume-bar" style="height: 30px;"></div>
+              <div class="volume-bar" style="height: 45px;"></div>
+              <div class="volume-bar" style="height: 60px;"></div>
+              <div class="volume-bar" style="height: 45px;"></div>
+              <div class="volume-bar" style="height: 30px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <div class="image-container">
+            <img
+              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+              alt="Content Creation Setup"
+            />
+            <div class="image-badge">
+              <div class="image-badge-title">YouTube Pro Package</div>
+              <div class="image-badge-text">
+                <span class="image-badge-label">SEO + Thumbnail + Editing</span>
+                <div class="pulse-dot"></div>
+                <div class="pulse-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services section -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">My Services</h2>
+          <div class="section-divider"></div>
+          <p class="section-description">
+            I offer comprehensive services to boost your YouTube presence and
+            social media impact. Each service can be customized to your specific needs.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Service 1 -->
+          <div class="service-card">
+            <div class="service-card-header">
+              <div class="service-icon">🔍</div>
+              <h3 class="service-title">YouTube SEO</h3>
+              <p class="service-description">
+                Boost your video visibility with expert keyword research, optimized titles, descriptions, and tags that help your content rank higher.
+              </p>
+            </div>
+
+            <div class="service-content">
+              <ul class="service-features">
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Keyword Research & Analysis</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Title & Description Optimization</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Tags & Metadata Enhancement</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Competitor Research</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Analytics & Performance Tracking</span>
+                </li>
+              </ul>
+              <button class="btn btn-outline">Learn More</button>
+            </div>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="service-card">
+            <div class="service-card-header">
+              <div class="service-icon">🎨</div>
+              <h3 class="service-title">Thumbnail Design</h3>
+              <p class="service-description">
+                Capture more clicks with eye-catching, professional thumbnails that stand out in search results and recommended feeds.
+              </p>
+            </div>
+
+            <div class="service-content">
+              <ul class="service-features">
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Custom Graphic Design</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Text Overlay Optimization</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Color Psychology Application</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Branded Elements Integration</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">A/B Testing Options</span>
+                </li>
+              </ul>
+              <button class="btn btn-outline">Learn More</button>
+            </div>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="service-card">
+            <div class="service-card-header">
+              <div class="service-icon">🎬</div>
+              <h3 class="service-title">Video Editing</h3>
+              <p class="service-description">
+                Transform your raw footage into polished, engaging content with professional editing that keeps viewers watching longer.
+              </p>
+            </div>
+
+            <div class="service-content">
+              <ul class="service-features">
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Cut & Transition Editing</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Audio Enhancement</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Color Grading & Correction</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Motion Graphics & Effects</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Intro & Outro Creation</span>
+                </li>
+              </ul>
+              <button class="btn btn-outline">Learn More</button>
+            </div>
+          </div>
+
+          <!-- Service 4 -->
+          <div class="service-card">
+            <div class="service-card-header">
+              <div class="service-icon">📱</div>
+              <h3 class="service-title">Social Media Management</h3>
+              <p class="service-description">
+                Expand your reach across platforms with coordinated posting, engagement strategies, and cross-promotion of your content.
+              </p>
+            </div>
+
+            <div class="service-content">
+              <ul class="service-features">
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Content Calendar Creation</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Cross-Platform Posting</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Audience Engagement</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Growth Strategy Implementation</span>
+                </li>
+                <li class="service-feature">
+                  <span class="feature-icon">✓</span>
+                  <span class="feature-text">Performance Analytics & Reporting</span>
+                </li>
+              </ul>
+              <button class="btn btn-outline">Learn More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills section -->
+    <section id="skills" class="section section-gray">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">My Expertise</h2>
+          <div class="section-divider"></div>
+          <p class="section-description">
+            Years of experience have honed my skills in these areas, allowing me to deliver
+            top-quality results for all your content creation needs.
+          </p>
+        </div>
+
+        <div class="skills-list">
+          <!-- Skill 1 -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <h3 class="skill-name">YouTube SEO</h3>
+              <div class="skill-rating">
+                <div class="rating-dots">
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                </div>
+                <span class="rating-percentage" id="skill-1-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="--progress-width: 95%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 2 -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <h3 class="skill-name">Thumbnail Design</h3>
+              <div class="skill-rating">
+                <div class="rating-dots">
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                </div>
+                <span class="rating-percentage" id="skill-2-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="--progress-width: 90%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 3 -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <h3 class="skill-name">Video Editing</h3>
+              <div class="skill-rating">
+                <div class="rating-dots">
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-empty"></div>
+                </div>
+                <span class="rating-percentage" id="skill-3-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="--progress-width: 85%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 4 -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <h3 class="skill-name">Social Media Management</h3>
+              <div class="skill-rating">
+                <div class="rating-dots">
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                </div>
+                <span class="rating-percentage" id="skill-4-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="--progress-width: 92%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 5 -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <h3 class="skill-name">Content Strategy</h3>
+              <div class="skill-rating">
+                <div class="rating-dots">
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-empty"></div>
+                </div>
+                <span class="rating-percentage" id="skill-5-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="--progress-width: 88%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 6 -->
+          <div class="skill-item">
+            <div class="skill-header">
+              <h3 class="skill-name">Channel Growth</h3>
+              <div class="skill-rating">
+                <div class="rating-dots">
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                  <div class="rating-dot rating-dot-filled"></div>
+                </div>
+                <span class="rating-percentage" id="skill-6-percentage">0%</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="--progress-width: 93%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Volume slider styled component -->
+        <div class="service-level-container">
+          <div class="service-level-card">
+            <h4 class="service-level-title">Adjust Your Preferred Service Level</h4>
+            <div>
+              <!-- Service Level 1 -->
+              <div class="service-level-item">
+                <div class="service-level-header">
+                  <div class="service-level-name">YouTube SEO</div>
+                  <div class="service-level-indicator">
+                    <div class="level-bar" style="animation-delay: 0s;"></div>
+                    <div class="level-bar" style="animation-delay: 0.1s;"></div>
+                    <div class="level-bar" style="animation-delay: 0.2s;"></div>
+                  </div>
+                </div>
+                <input type="range" class="volume-slider" min="1" max="10" value="8">
+              </div>
+
+              <!-- Service Level 2 -->
+              <div class="service-level-item">
+                <div class="service-level-header">
+                  <div class="service-level-name">Thumbnail Quality</div>
+                  <div class="service-level-indicator">
+                    <div class="level-bar" style="animation-delay: 0.3s;"></div>
+                    <div class="level-bar" style="animation-delay: 0.4s;"></div>
+                    <div class="level-bar" style="animation-delay: 0.5s;"></div>
+                  </div>
+                </div>
+                <input type="range" class="volume-slider" min="1" max="10" value="9">
+              </div>
+
+              <!-- Service Level 3 -->
+              <div class="service-level-item">
+                <div class="service-level-header">
+                  <div class="service-level-name">Video Editing</div>
+                  <div class="service-level-indicator">
+                    <div class="level-bar" style="animation-delay: 0.6s;"></div>
+                    <div class="level-bar" style="animation-delay: 0.7s;"></div>
+                    <div class="level-bar" style="animation-delay: 0.8s;"></div>
+                  </div>
+                </div>
+                <input type="range" class="volume-slider" min="1" max="10" value="7">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio section -->
+    <section id="portfolio" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">My Portfolio</h2>
+          <div class="section-divider"></div>
+          <p class="section-description">
+            Browse through my previous projects and see the results I've achieved for clients
+            across different industries and content categories.
+          </p>
+        </div>
+
+        <!-- Portfolio filters -->
+        <div class="tabs" id="portfolio-tabs">
+          <button class="tab active" data-category="all">All Projects</button>
+          <button class="tab" data-category="youtube-seo">YouTube SEO</button>
+          <button class="tab" data-category="thumbnail">Thumbnails</button>
+          <button class="tab" data-category="video-editing">Video Editing</button>
+          <button class="tab" data-category="social-media">Social Media</button>
+        </div>
+
+        <!-- Portfolio grid -->
+        <div class="portfolio-grid" id="portfolio-grid">
+          <!-- Portfolio items will be inserted here via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact section -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact info -->
+          <div class="contact-info">
+            <h2>Contact Me</h2>
+            <p>
+              Ready to boost your YouTube presence? Let's discuss how my services can help you grow your channel and engage more viewers.
+            </p>
+
+            <div class="contact-item">
+              <h3>Email</h3>
+              <p class="contact-email">contact@creativeytstudio.com</p>
+            </div>
+
+            <div class="contact-item">
+              <h3>Let's Connect</h3>
+              <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                  </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="20" x="2" y="2" rx="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                  </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect width="4" height="12" x="2" y="9"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="YouTube">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Volume bars -->
+            <div class="contact-listening">
+              <div class="contact-listening-bars">
+                <div class="contact-listening-bar" style="height: 20px; animation-delay: 0s;"></div>
+                <div class="contact-listening-bar" style="height: 35px; animation-delay: 0.2s;"></div>
+                <div class="contact-listening-bar" style="height: 25px; animation-delay: 0.4s;"></div>
+                <div class="contact-listening-bar" style="height: 40px; animation-delay: 0.6s;"></div>
+                <div class="contact-listening-bar" style="height: 30px; animation-delay: 0.8s;"></div>
+              </div>
+              <div class="contact-listening-text">Always listening</div>
+            </div>
+          </div>
+
+          <!-- Contact form -->
+          <div class="contact-form">
+            <h3>Get In Touch</h3>
+            <form id="contact-form">
+              <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="service" class="form-label">Service Needed</label>
+                <select id="service" name="service" class="form-select" required>
+                  <option value="">Select a service</option>
+                  <option value="youtube-seo">YouTube SEO</option>
+                  <option value="thumbnail-design">Thumbnail Design</option>
+                  <option value="video-editing">Video Editing</option>
+                  <option value="social-media">Social Media Management</option>
+                  <option value="multiple">Multiple Services</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Column 1 -->
+        <div class="footer-column">
+          <h3>CreativeYT</h3>
+          <p class="footer-description">
+            Professional YouTube services to help content creators grow their channels and engage their audience.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#home">Home</a></li>
+            <li class="footer-link"><a href="#services">Services</a></li>
+            <li class="footer-link"><a href="#skills">Skills</a></li>
+            <li class="footer-link"><a href="#portfolio">Portfolio</a></li>
+            <li class="footer-link"><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#services">YouTube SEO</a></li>
+            <li class="footer-link"><a href="#services">Thumbnail Design</a></li>
+            <li class="footer-link"><a href="#services">Video Editing</a></li>
+            <li class="footer-link"><a href="#services">Social Media Management</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; <span id="current-year"></span> CreativeYT. All rights reserved.
+        </p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast">
+    <div class="toast-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+    </div>
+    <div class="toast-message">Message sent successfully!</div>
+  </div>
+
+  <!-- Portfolio modal -->
+  <div class="modal" id="portfolio-modal">
+    <div class="modal-content">
+      <button class="modal-close-button" id="modal-close">✕</button>
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title"></h3>
+        <p class="modal-subtitle" id="modal-client"></p>
+      </div>
+      <div class="modal-body">
+        <img src="" alt="Project image" id="modal-image" class="modal-image">
+        <div class="modal-section">
+          <h4 class="modal-section-title">Description</h4>
+          <p id="modal-description"></p>
+        </div>
+        <div class="modal-section">
+          <h4 class="modal-section-title">Service Category</h4>
+          <div id="modal-category"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Portfolio data
+    const portfolioProjects = [
+      {
+        id: 1,
+        title: "Gaming Channel Growth",
+        category: "youtube-seo",
+        image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        client: "GamerPro",
+        description: "Optimized channel SEO resulting in 200% subscriber growth and 150% increase in views over 3 months."
+      },
+      {
+        id: 2,
+        title: "Lifestyle Vlogger Rebrand",
+        category: "thumbnail",
+        image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        client: "LifeStyler",
+        description: "Complete thumbnail redesign across 50+ videos, increasing CTR from 4% to 9.5%."
+      },
+      {
+        id: 3,
+        title: "Tech Review Channel",
+        category: "video-editing",
+        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        client: "TechReviewer",
+        description: "Created professional intro/outro sequences and editing templates that reduced production time by 40%."
+      },
+      {
+        id: 4,
+        title: "Cooking Channel Launch",
+        category: "social-media",
+        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        client: "ChefMaster",
+        description: "Managed cross-platform promotion campaign resulting in 10k subscribers in first month."
+      },
+      {
+        id: 5,
+        title: "Educational Content Optimization",
+        category: "youtube-seo",
+        image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        client: "LearnDaily",
+        description: "Enhanced discoverability with topic cluster strategy, increasing organic traffic by 85%."
+      },
+      {
+        id: 6,
+        title: "Music Promotion Campaign",
+        category: "thumbnail",
+        image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80",
+        client: "MusicProducer",
+        description: "Created consistent branded thumbnails for music release campaign, increasing average views by 70%."
+      }
+    ];
+
+    // DOM elements
+    const header = document.getElementById('header');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const portfolioGrid = document.getElementById('portfolio-grid');
+    const portfolioTabs = document.getElementById('portfolio-tabs');
+    const portfolioModal = document.getElementById('portfolio-modal');
+    const modalClose = document.getElementById('modal-close');
+    const modalTitle = document.getElementById('modal-title');
+    const modalClient = document.getElementById('modal-client');
+    const modalDescription = document.getElementById('modal-description');
+    const modalCategory = document.getElementById('modal-category');
+    const modalImage = document.getElementById('modal-image');
+    const contactForm = document.getElementById('contact-form');
+    const toast = document.getElementById('toast');
+    const currentYearEl = document.getElementById('current-year');
+    const typingTextEl = document.getElementById('typing-text');
+
+    // Set current year in footer
+    currentYearEl.textContent = new Date().getFullYear();
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      
+      // Update burger icon
+      const spans = mobileMenuBtn.querySelectorAll('span');
+      if (mobileMenu.classList.contains('open')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        const spans = mobileMenuBtn.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      });
+    });
+
+    // Typing effect
+    const textOptions = ["YouTube SEO", "Thumbnail Design", "Video Editing", "Social Media Management"];
+    let currentTextIndex = 0;
+    let currentChar = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
+    let pauseTime = 1500;
+    let isPaused = false;
+
+    function typeText() {
+      if (!typingTextEl) return;
+      
+      const currentText = textOptions[currentTextIndex];
+      let displayText = currentText.substring(0, currentChar);
+      typingTextEl.textContent = displayText;
+
+      // If deleting text
+      if (isDeleting) {
+        currentChar--;
+        typingSpeed = 50; // Delete faster
+      } 
+      // If done typing the word and in pause state
+      else if (currentChar === currentText.length && isPaused) {
+        if (pauseTime > 0) {
+          pauseTime -= typingSpeed;
+          typingSpeed = 50; // Wait before deleting
+          setTimeout(typeText, typingSpeed);
+          return;
+        } else {
+          isPaused = false;
+          isDeleting = true;
+          pauseTime = 1500; // Reset pause time
+          typingSpeed = 50; // Start deleting
+        }
+      }
+      // If done typing the word
+      else if (currentChar === currentText.length) {
+        isPaused = true;
+      }
+      // If typing text
+      else {
+        currentChar++;
+        typingSpeed = 100 + Math.random() * 50; // Variable typing speed
+      }
+
+      // If done deleting
+      if (isDeleting && currentChar === 0) {
+        isDeleting = false;
+        currentTextIndex = (currentTextIndex + 1) % textOptions.length;
+        typingSpeed = 500; // Pause before typing next word
+      }
+
+      setTimeout(typeText, typingSpeed);
+    }
+
+    // Start typing effect
+    setTimeout(typeText, 1000);
+
+    // Skills percentage animation
+    function animateSkillPercentages() {
+      const skillElements = [
+        { id: 'skill-1-percentage', value: 95 },
+        { id: 'skill-2-percentage', value: 90 },
+        { id: 'skill-3-percentage', value: 85 },
+        { id: 'skill-4-percentage', value: 92 },
+        { id: 'skill-5-percentage', value: 88 },
+        { id: 'skill-6-percentage', value: 93 }
+      ];
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            skillElements.forEach(skill => {
+              animateNumber(document.getElementById(skill.id), 0, skill.value, 1500);
+            });
+            observer.disconnect();
+          }
+        });
+      });
+      
+      const skillsSection = document.getElementById('skills');
+      if (skillsSection) {
+        observer.observe(skillsSection);
+      }
+    }
+
+    function animateNumber(element, start, end, duration) {
+      if (!element) return;
+      
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        element.textContent = `${value}%`;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    // Portfolio tab filtering
+    function renderPortfolioItems(category = 'all') {
+      if (!portfolioGrid) return;
+      
+      portfolioGrid.innerHTML = '';
+      const filteredProjects = category === 'all' 
+        ? portfolioProjects 
+        : portfolioProjects.filter(project => project.category === category);
+
+      filteredProjects.forEach(project => {
+        const categoryName = project.category
+          .split('-')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+          
+        let categoryClass = '';
+        
+        if (project.category === 'youtube-seo') categoryClass = 'category-youtube-seo';
+        else if (project.category === 'thumbnail') categoryClass = 'category-thumbnail';
+        else if (project.category === 'video-editing') categoryClass = 'category-video-editing';
+        else if (project.category === 'social-media') categoryClass = 'category-social-media';
+        
+        const portfolioItem = document.createElement('div');
+        portfolioItem.className = 'portfolio-item';
+        portfolioItem.dataset.id = project.id;
+        
+        portfolioItem.innerHTML = `
+          <div class="portfolio-image-container">
+            <img src="${project.image}" alt="${project.title}" class="portfolio-image">
+            <div class="portfolio-overlay">
+              <div class="view-details">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span>View Details</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-content">
+            <h3 class="portfolio-title">${project.title}</h3>
+            <p class="portfolio-client">Client: ${project.client}</p>
+            <p class="portfolio-description">${project.description}</p>
+            <div class="portfolio-footer">
+              <span class="portfolio-category ${categoryClass}">${categoryName}</span>
+              <div class="portfolio-indicator">
+                <div class="indicator-bar"></div>
+                <div class="indicator-bar"></div>
+                <div class="indicator-bar"></div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        portfolioGrid.appendChild(portfolioItem);
+
+        // Add click event to open modal
+        portfolioItem.addEventListener('click', () => {
+          openPortfolioModal(project);
+        });
+      });
+    }
+
+    // Portfolio tabs click event
+    if (portfolioTabs) {
+      portfolioTabs.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab')) {
+          const category = e.target.dataset.category;
+          
+          // Update active tab
+          document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('active');
+          });
+          e.target.classList.add('active');
+          
+          // Filter and render items
+          renderPortfolioItems(category);
+        }
+      });
+    }
+
+    // Portfolio modal functions
+    function openPortfolioModal(project) {
+      const categoryName = project.category
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+        
+      let categoryClass = '';
+      
+      if (project.category === 'youtube-seo') categoryClass = 'category-youtube-seo';
+      else if (project.category === 'thumbnail') categoryClass = 'category-thumbnail';
+      else if (project.category === 'video-editing') categoryClass = 'category-video-editing';
+      else if (project.category === 'social-media') categoryClass = 'category-social-media';
+        
+      modalTitle.textContent = project.title;
+      modalClient.textContent = `Client: ${project.client}`;
+      modalDescription.textContent = project.description;
+      modalCategory.innerHTML = `<span class="portfolio-category ${categoryClass}">${categoryName}</span>`;
+      modalImage.src = project.image;
+      modalImage.alt = project.title;
+      
+      portfolioModal.classList.add('open');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    }
+
+    function closePortfolioModal() {
+      portfolioModal.classList.remove('open');
+      document.body.style.overflow = ''; // Re-enable scrolling
+    }
+
+    // Modal close button
+    if (modalClose) {
+      modalClose.addEventListener('click', closePortfolioModal);
+    }
+
+    // Close modal when clicking outside of modal content
+    if (portfolioModal) {
+      portfolioModal.addEventListener('click', (e) => {
+        if (e.target === portfolioModal) {
+          closePortfolioModal();
+        }
+      });
+    }
+
+    // Close modal with ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && portfolioModal.classList.contains('open')) {
+        closePortfolioModal();
+      }
+    });
+
+    // Contact form submission
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(contactForm);
+        
+        // Here you would typically send the form data to a server
+        // For demo purposes, we'll just simulate a successful submission
+        
+        // Show success toast
+        showToast('Message sent successfully!');
+        
+        // Reset form
+        contactForm.reset();
+      });
+    }
+
+    // Toast notification function
+    function showToast(message) {
+      const toastMessage = document.querySelector('.toast-message');
+      if (toastMessage) {
+        toastMessage.textContent = message;
+      }
+      
+      toast.classList.add('show');
+      
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const yOffset = -80; // Header height and additional offset
+          const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          
+          window.scrollTo({
+            top: y,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          mobileMenu.classList.remove('open');
+        }
+      });
+    });
+
+    // Initialize portfolio grid
+    renderPortfolioItems();
+
+    // Start skill percentages animation
+    animateSkillPercentages();
+
+    // Service level sliders animation
+    document.querySelectorAll('.volume-slider').forEach(slider => {
+      slider.addEventListener('input', function() {
+        const value = this.value;
+        const levelIndicator = this.previousElementSibling.querySelector('.service-level-indicator');
+        
+        const bars = levelIndicator.querySelectorAll('.level-bar');
+        bars.forEach((bar, index) => {
+          if (index < value / 4) {
+            bar.style.opacity = '1';
+          } else {
+            bar.style.opacity = '0.3';
+          }
+        });
+      });
+      
+      // Trigger input event to set initial state
+      const event = new Event('input');
+      slider.dispatchEvent(event);
+    });
+  </script>
+</body>
 </html>
+
