@@ -1,46 +1,7 @@
 
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import React from "react";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    service: "",
-    message: "",
-  });
-  
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-      });
-      setFormData({
-        name: "",
-        email: "",
-        service: "",
-        message: "",
-      });
-      setIsSubmitting(false);
-    }, 1500);
-  };
-
   return (
     <section id="contact" className="py-24">
       <div className="container px-4 mx-auto">
@@ -56,7 +17,12 @@ const Contact = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="font-medium mb-2">Email</h3>
-                  <p className="text-purple-600">contact@creativeytstudio.com</p>
+                  <div className="space-y-1">
+                    <p className="text-purple-600">rohimmia138883@gmail.com</p>
+                    <p className="text-purple-600">mahinworkocpc@gmail.com</p>
+                    <p className="text-purple-600">zaynrahmanonline@gmail.com</p>
+                    <p className="text-purple-600">rohimseoexpert@gmail.com</p>
+                  </div>
                 </div>
 
                 <div>
@@ -109,77 +75,26 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-3 bg-white p-6 md:p-8 rounded-xl shadow-lg">
-              <h3 className="text-xl font-semibold mb-6">Get In Touch</h3>
-              <form onSubmit={handleSubmit}>
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your name"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="your@email.com"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1">Service Needed</label>
-                    <select
-                      id="service"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-white"
-                      required
-                    >
-                      <option value="">Select a service</option>
-                      <option value="youtube-seo">YouTube SEO</option>
-                      <option value="thumbnail-design">Thumbnail Design</option>
-                      <option value="video-editing">Video Editing</option>
-                      <option value="social-media">Social Media Management</option>
-                      <option value="multiple">Multiple Services</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Tell me about your project..."
-                      rows={5}
-                      required
-                    />
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-purple-600 hover:bg-purple-700"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </div>
-              </form>
+            {/* JotForm Embed */}
+            <div className="lg:col-span-3 bg-white rounded-xl shadow-lg overflow-hidden">
+              <iframe
+                id="JotFormIFrame-251392805458463"
+                title="Contact Form"
+                onLoad={() => {
+                  window.parent.scrollTo(0, 0);
+                }}
+                allowTransparency={true}
+                allowFullScreen={true}
+                allow="geolocation; microphone; camera"
+                src="https://form.jotform.com/251392805458463"
+                frameBorder="0"
+                style={{
+                  width: "100%",
+                  height: "539px",
+                  border: "none",
+                }}
+                scrolling="no"
+              />
             </div>
           </div>
         </div>
