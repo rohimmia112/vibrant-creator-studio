@@ -18,10 +18,7 @@ const Contact = () => {
                 <div>
                   <h3 className="font-medium mb-2">Email</h3>
                   <div className="space-y-1">
-                    <p className="text-purple-600">rohimmia138883@gmail.com</p>
-                    <p className="text-purple-600">mahinworkocpc@gmail.com</p>
-                    <p className="text-purple-600">zaynrahmanonline@gmail.com</p>
-                    <p className="text-purple-600">rohimseoexpert@gmail.com</p>
+                    <p className="text-purple-600">contact@creativeytstudio.com</p>
                   </div>
                 </div>
 
@@ -90,7 +87,7 @@ const Contact = () => {
                 frameBorder="0"
                 style={{
                   width: "100%",
-                  height: "539px",
+                  height: "800px", // Increased height to ensure form is fully visible
                   border: "none",
                 }}
                 scrolling="no"

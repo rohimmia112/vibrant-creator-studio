@@ -105,8 +105,8 @@ const Hero = () => {
           <div className="relative">
             <div className="bg-purple-700/20 backdrop-blur-lg rounded-lg p-6 md:p-8 shadow-xl animate-bounce-slight">
               <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                alt="Content Creation Setup"
+                src="/lovable-uploads/b0b8aa2e-b655-45bc-9f64-bbcfa0a039df.png"
+                alt="Content Creator Profile"
                 className="rounded-md shadow-lg"
               />
               <div className="absolute -bottom-6 -right-6 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
