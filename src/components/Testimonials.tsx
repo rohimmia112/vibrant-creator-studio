@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 
 // YouTube-focused testimonial data
@@ -18,7 +17,6 @@ const testimonials = [
     id: 1,
     name: "Emily Andersen",
     handle: "@EmilyCreates",
-    avatar: "/lovable-uploads/b0b8aa2e-b655-45bc-9f64-bbcfa0a039df.png",
     rating: 5,
     shortReview: "My channel's growth exploded after implementing your SEO strategies! From 2K to 40K subscribers in just 3 months.",
     fullReview: "My channel's growth exploded after implementing your SEO strategies! From 2K to 40K subscribers in just 3 months. Your keyword research and title optimization made all the difference. My videos now rank on the first page for competitive terms, and my CTR increased from 3.2% to 8.7%. I've secured two brand deals since working with you. I cannot recommend your services enough!",
@@ -33,7 +31,6 @@ const testimonials = [
     id: 2,
     name: "Marcus Johnson",
     handle: "@TechWithMarcus",
-    avatar: "/lovable-uploads/b0b8aa2e-b655-45bc-9f64-bbcfa0a039df.png",
     rating: 5,
     shortReview: "The thumbnail redesign completely transformed my channel. Click-through rate jumped from 4.1% to 9.5%!",
     fullReview: "The thumbnail redesign completely transformed my channel. Click-through rate jumped from 4.1% to 9.5%! I was struggling to stand out in the tech niche, but your vibrant designs and strategic text placement made my content impossible to ignore. Analytics show that new viewers are subscribing at twice the previous rate. The investment paid for itself within the first week with increased ad revenue.",
@@ -48,7 +45,6 @@ const testimonials = [
     id: 3,
     name: "Sophia Williams",
     handle: "@SophiaCooks",
-    avatar: "/lovable-uploads/b0b8aa2e-b655-45bc-9f64-bbcfa0a039df.png",
     rating: 5,
     shortReview: "Your video editing services saved me 20+ hours each week. Now I can focus on recipe development while my content quality improved!",
     fullReview: "Your video editing services saved me 20+ hours each week. Now I can focus on recipe development while my content quality improved! The smooth transitions, color grading, and sound design are all professional-grade. My audience retention increased from 3:24 to 6:17 per video, and comments about production quality have been overwhelmingly positive. My cooking channel has never looked better!",
@@ -63,7 +59,6 @@ const testimonials = [
     id: 4,
     name: "Alex Rivera",
     handle: "@GamingWithAlex",
-    avatar: "/lovable-uploads/b0b8aa2e-b655-45bc-9f64-bbcfa0a039df.png",
     rating: 5,
     shortReview: "Going viral was just a dream until I hired you. Your social media strategy got my gaming clips on TikTok and Instagram with millions of views!",
     fullReview: "Going viral was just a dream until I hired you. Your social media strategy got my gaming clips on TikTok and Instagram with millions of views! The cross-platform approach helped me grow on YouTube from 5K to 75K subscribers in just two months. The edited shorts and perfectly timed posts created a snowball effect of growth. Now I'm getting sponsorship offers weekly. Best investment for my channel ever!",
@@ -124,12 +119,6 @@ const Testimonials = () => {
                 <Card className="bg-zinc-900 border-zinc-800 overflow-hidden hover:border-red-500/30 transition-all duration-300">
                   <CardHeader className="pb-0">
                     <div className="flex items-center gap-4">
-                      <Avatar className="h-12 w-12 border-2 border-red-500">
-                        <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                        <AvatarFallback className="bg-red-500/20 text-red-200">
-                          {testimonial.name.substring(0, 2)}
-                        </AvatarFallback>
-                      </Avatar>
                       <div>
                         <div className="font-bold text-white">{testimonial.name}</div>
                         <div className="flex items-center gap-1 text-sm text-gray-400">
