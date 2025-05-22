@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Youtube } from "lucide-react";
 
 const Hero = () => {
   const [typedText, setTypedText] = useState("");
@@ -56,44 +57,47 @@ const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-20">
       {/* Background animation */}
-      <div className="absolute inset-0 animated-gradient -z-10"></div>
+      <div className="absolute inset-0 bg-black -z-10"></div>
       
       {/* Content */}
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
         <div className="w-full md:w-1/2 md:pr-8 text-white mb-12 md:mb-0">
           <div className="mb-6 animate-fade-in">
-            <p className="text-lg mb-2 font-medium opacity-80">Welcome to my digital studio</p>
+            <div className="flex items-center gap-2 mb-2">
+              <Youtube className="h-5 w-5 text-red-500" />
+              <p className="text-lg font-medium text-red-400">Your YouTube Growth Partner</p>
+            </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Professional{" "}
-              <span className="text-white relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-white/50">
+              <span className="text-red-500 relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-red-500/50">
                 {typedText}
               </span>
-              <span className="animate-pulse">|</span>
+              <span className="animate-pulse text-red-500">|</span>
             </h1>
-            <p className="text-lg md:text-xl mb-6 opacity-90">
+            <p className="text-lg md:text-xl mb-6 text-gray-300">
               I help content creators boost their YouTube presence with expert SEO, stunning thumbnails,
               professional video editing, and complete social media management.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-4">
-            <Button className="bg-white text-purple-800 hover:bg-purple-100 font-semibold px-6 py-6 text-lg rounded-md">
+            <Button className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-6 text-lg rounded-md border-0">
               View My Work
             </Button>
-            <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10 font-semibold px-6 py-6 text-lg rounded-md">
+            <Button variant="outline" className="bg-transparent border-red-500 text-red-500 hover:bg-red-500/10 font-semibold px-6 py-6 text-lg rounded-md">
               Contact Me
             </Button>
           </div>
 
           {/* Volume bars animation */}
           <div className="flex items-end h-12 mt-10">
-            <div className="text-sm font-medium mr-3 opacity-80">Services</div>
+            <div className="text-sm font-medium mr-3 text-red-400">Services</div>
             <div className="flex items-end">
               {[30, 45, 60, 45, 30].map((height, index) => (
                 <div 
                   key={index} 
                   className="volume-bar" 
-                  style={{ height: `${height}px` }}
+                  style={{ height: `${height}px`, backgroundColor: '#ef4444' }}
                 ></div>
               ))}
             </div>
@@ -103,19 +107,19 @@ const Hero = () => {
         {/* Hero image */}
         <div className="w-full md:w-1/2">
           <div className="relative">
-            <div className="bg-purple-700/20 backdrop-blur-lg rounded-lg p-6 md:p-8 shadow-xl animate-bounce-slight">
+            <div className="bg-zinc-900/80 backdrop-blur-lg rounded-lg p-6 md:p-8 shadow-xl animate-bounce-slight border border-zinc-800">
               <img
                 src="/lovable-uploads/b0b8aa2e-b655-45bc-9f64-bbcfa0a039df.png"
                 alt="Content Creator Profile"
                 className="rounded-md shadow-lg"
               />
-              <div className="absolute -bottom-6 -right-6 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg">
-                <div className="text-lg font-bold text-purple-800">YouTube Pro Package</div>
+              <div className="absolute -bottom-6 -right-6 bg-black/90 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-zinc-800">
+                <div className="text-lg font-bold text-red-500">YouTube Pro Package</div>
                 <div className="flex items-center mt-1">
-                  <div className="mr-2 text-sm font-medium text-gray-500">SEO + Thumbnail + Editing</div>
+                  <div className="mr-2 text-sm font-medium text-gray-300">SEO + Thumbnail + Editing</div>
                   <div className="flex">
-                    <div className="h-2 w-2 rounded-full bg-purple-500 mr-1 opacity-80 animate-pulse"></div>
-                    <div className="h-2 w-2 rounded-full bg-purple-500 animate-pulse"></div>
+                    <div className="h-2 w-2 rounded-full bg-red-500 mr-1 opacity-80 animate-pulse"></div>
+                    <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></div>
                   </div>
                 </div>
               </div>

@@ -5,33 +5,33 @@
 
 @layer base {
   :root {
-    --background: 260 30% 98%;
-    --foreground: 250 40% 15%;
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 250 40% 15%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 250 40% 15%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 260 70% 55%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 84% 60%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 260 20% 92%;
-    --secondary-foreground: 250 40% 15%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 260 20% 92%;
-    --muted-foreground: 250 40% 40%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 260 25% 88%;
-    --accent-foreground: 250 40% 15%;
+    --accent: 0 84% 60%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 260 20% 85%;
-    --input: 260 20% 85%;
-    --ring: 260 70% 55%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 84% 60%;
 
     --radius: 0.5rem;
   }
@@ -53,10 +53,10 @@
   .animated-gradient {
     background: linear-gradient(
       -45deg,
-      #9b87f5,
-      #7E69AB,
-      #6E59A5,
-      #5A4A9C
+      #ef4444,
+      #b91c1c,
+      #7f1d1d,
+      #450a0a
     );
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
@@ -76,15 +76,15 @@
 
   /* Custom volume slider styles */
   .volume-slider {
-    @apply appearance-none bg-purple-200 h-1.5 rounded-full;
+    @apply appearance-none bg-red-200 h-1.5 rounded-full;
   }
 
   .volume-slider::-webkit-slider-thumb {
-    @apply appearance-none bg-purple-500 w-5 h-5 rounded-full cursor-pointer;
+    @apply appearance-none bg-red-500 w-5 h-5 rounded-full cursor-pointer;
   }
 
   .volume-slider::-moz-range-thumb {
-    @apply bg-purple-500 w-5 h-5 rounded-full cursor-pointer border-none;
+    @apply bg-red-500 w-5 h-5 rounded-full cursor-pointer border-none;
   }
 
   /* Progress bar animation */
@@ -93,12 +93,12 @@
   }
 
   .progress-bar-fill {
-    @apply h-full animate-progress-fill absolute top-0 left-0 bg-gradient-to-r from-purple-400 to-purple-700;
+    @apply h-full animate-progress-fill absolute top-0 left-0 bg-gradient-to-r from-red-400 to-red-700;
   }
 
   /* Animated volume bars */
   .volume-bar {
-    @apply w-1.5 bg-purple-500 mx-0.5 rounded-full animate-volume-wave;
+    @apply w-1.5 bg-red-500 mx-0.5 rounded-full animate-volume-wave;
   }
 
   .volume-bar:nth-child(2) {
